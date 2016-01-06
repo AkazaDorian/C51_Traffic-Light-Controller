@@ -1,0 +1,70 @@
+C51 COMPILER V9.54   SOURCE                                                                12/07/2015 16:25:08 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE SOURCE
+OBJECT MODULE PLACED IN .\Objects\Source.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Source.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\So
+                    -urce.lst) TABS(2) OBJECT(.\Objects\Source.obj)
+
+line level    source
+
+   1          #include "Header.h"
+*** WARNING C280 IN LINE 223 OF Header.h: 'OutOfIf': unreferenced label
+   2          
+   3          int main()
+   4          {
+   5   1        DisplayData[0] = DIG_CODE[2];
+   6   1        DisplayData[1] = DIG_CODE[0];
+   7   1        DisplayData[2] = DIG_CODE[2];
+   8   1        DisplayData[3] = DIG_CODE[0];
+   9   1        DisplayData[4] = DIG_CODE[0];
+  10   1        DisplayData[5] = DIG_CODE[0];
+  11   1        TMOD = 0x01;//设定工作方式为16位定时器
+  12   1        TH0 = (65536 - 40000) / 256;//赋定时器T0高四的值为40MS（对256求模）  
+  13   1        TL0 = (65536 - 40000) % 256;//赋定时器T0低四的值为40MS（对256求余）  
+  14   1        EA = 1;//开总中断
+  15   1        ET0 = 1;//开定时器T0中断  
+  16   1        TR0 = 1;//启动定时器T0
+  17   1        EastGreen = 1;
+  18   1        EastYellow = 1;
+  19   1        EastRed = 0;
+  20   1        NorthGreen = 1;
+  21   1        NorthYellow = 1;
+  22   1        NorthRed = 0;
+  23   1        NorthSidewalkGreen = 1;
+  24   1        NorthSidewalkRed = 0;
+  25   1        EastSidewalkGreen = 1;
+  26   1        EastSidewalkRed = 0;
+  27   1        do
+  28   1        {
+  29   2          Delay200ms();
+  30   2          EastRed = !EastRed;
+  31   2          NorthRed = !NorthRed;
+  32   2          NorthSidewalkRed = !NorthSidewalkRed;
+  33   2          EastSidewalkRed = !EastSidewalkRed;
+  34   2        } while (--TempCounter < 5);
+  35   1        EastGreen = 0;
+  36   1        EastRed = 1;
+  37   1        NorthRed = 0; 
+  38   1        NorthSidewalkRed = 0;
+  39   1        EastSidewalkGreen = 0;
+  40   1        EastSidewalkRed = 1;
+  41   1        while (1)
+  42   1          DigDisplay();
+  43   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    741    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.54   SOURCE                                                                12/07/2015 16:25:08 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
